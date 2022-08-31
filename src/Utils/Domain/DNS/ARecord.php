@@ -32,7 +32,7 @@ class ARecord extends BaseRecord
      * Returns all entries of A DNS record.
      *
      * @param string $domain
-     * @return array<mixed>
+     * @return array<string, string|int|array<int, string>>
      * @throws NotFoundException
      */
     public function getAll(string $domain): array
@@ -61,6 +61,6 @@ class ARecord extends BaseRecord
             throw new NotFoundException('Array index', self::INDEX_NAME_IP);
         }
 
-        return $aRecord[self::INDEX_NAME_IP];
+        return strval($aRecord[self::INDEX_NAME_IP]);
     }
 }

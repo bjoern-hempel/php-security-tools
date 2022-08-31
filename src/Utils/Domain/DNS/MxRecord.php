@@ -32,7 +32,7 @@ class MxRecord extends BaseRecord
      * Returns all entries of MX DNS record.
      *
      * @param string $domain
-     * @return array<mixed>
+     * @return array<string, string|int|array<int, string>>
      * @throws NotFoundException
      */
     public function getAll(string $domain): array
@@ -61,6 +61,6 @@ class MxRecord extends BaseRecord
             throw new NotFoundException('Array index', self::INDEX_NAME_TARGET);
         }
 
-        return $aRecord[self::INDEX_NAME_TARGET];
+        return strval($aRecord[self::INDEX_NAME_TARGET]);
     }
 }

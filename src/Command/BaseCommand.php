@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Utils\Converter\Array2String;
 use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,54 +40,18 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * Returns if array is associative.
-     *
-     * @param array<mixed> $array
-     * @return bool
-     */
-    protected function isArrayAssociative(array $array): bool
-    {
-        if (array() === $array) {
-            return false;
-        }
-
-        return array_keys($array) !== range(0, count($array) - 1);
-    }
-
-    /**
-     * Returns the text of an array.
-     *
-     * @param array<mixed> $array
-     * @return string
-     */
-    protected function getArrayText(array $array): string
-    {
-        if ($this->isArrayAssociative($array)) {
-            $texts = [];
-
-            foreach ($array as $key => $value) {
-                $texts[] = sprintf('%s = %s', $key, strval($value));
-            }
-        } else {
-            $texts = $array;
-        }
-
-        return implode(', ', $texts);
-    }
-
-    /**
      * Prints the output.
      *
      * @param string $title
      * @param string $from
-     * @param string|array<mixed> $value
+     * @param string|array<string, string|int|array<int, string>> $value
      * @return void
      * @throws Exception
      */
     protected function printOutput(string $title, string $from, string|array $value): void
     {
         $text = match (true) {
-            is_array($value) => sprintf('%s → %s', $from, $this->getArrayText($value)),
+            is_array($value) => sprintf('%s → %s', $from, Array2String::getArrayText($value)),
             is_string($value) => sprintf('%s → %s', $from, $value),
         };
 

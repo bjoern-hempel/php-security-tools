@@ -16,8 +16,6 @@ namespace App\Tests\Unit\Utils\Domain\DNS;
 use App\Exception\NotFoundException;
 use App\Utils\Domain\DNS\ARecord;
 use App\Utils\Domain\DNS\BaseRecord;
-use DateTime;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,11 +33,11 @@ final class ARecordTest extends TestCase
      * @dataProvider dataProvider
      *
      * @test
-     * @testdox $number) Test SizeConverter: $method
+     * @testdox $number) Test ARecord: $domain
      * @param int $number
      * @param string $domain
      * @param bool $all
-     * @param string|array<mixed> $expected
+     * @param string|array<string, string|int> $expected
      * @throws NotFoundException
      */
     public function wrapper(int $number, string $domain, bool $all, string|array $expected): void
@@ -57,15 +55,15 @@ final class ARecordTest extends TestCase
     /**
      * Data provider.
      *
-     * @return array<int, array<int, int|string|bool|array<string, string|int>>>
+     * @return array<int, array{int, string, bool, string|array<string, string|int>}>
      */
     public function dataProvider(): array
     {
         $number = 0;
 
         return [
-            [++$number, 'fake.ixno.de', false, '1.2.3.4', ],
-            [++$number, 'fake.ixno.de', true, BaseRecord::VALUES_FAKE_HOSTNAME_A, ]
+            [++$number, BaseRecord::NAME_FAKE_HOSTNAME, false, BaseRecord::NAME_FAKE_IP, ],
+            [++$number, BaseRecord::NAME_FAKE_HOSTNAME, true, BaseRecord::VALUES_FAKE_HOSTNAME_A, ]
         ];
     }
 }
