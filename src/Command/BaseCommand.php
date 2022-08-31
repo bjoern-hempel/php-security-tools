@@ -57,10 +57,7 @@ abstract class BaseCommand extends Command
 
         $this->output->writeln([
             '',
-            $title,
-            str_repeat('=', strlen($title)),
-            '',
-            $text,
+            sprintf('[%s] (%s) %s', date('r'), $title, $text),
             ''
         ]);
     }
