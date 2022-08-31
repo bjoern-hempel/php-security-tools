@@ -28,11 +28,14 @@ abstract class BaseRecord
     /** @var string */
     public const NAME_FAKE_IP = '1.2.3.4';
 
+    /** @var string */
+    public const NAME_FAKE_MX_TARGET = 'mail.fake.ixno.de';
+
     /** @var array<string, string|int> */
     public const VALUES_FAKE_HOSTNAME_A = ['host' => self::NAME_FAKE_HOSTNAME, 'class' => 'IN', 'ttl' => 0, 'type' => 'A', 'ip' => self::NAME_FAKE_IP, ];
 
     /** @var array<string, string|int> */
-    protected const VALUES_FAKE_HOSTNAME_MX = ['host' => self::NAME_FAKE_HOSTNAME, 'class' => 'IN', 'ttl' => 0, 'type' => 'MX', 'pri' => 10, 'target' => 'mail.fake.ixno.de', ];
+    public const VALUES_FAKE_HOSTNAME_MX = ['host' => self::NAME_FAKE_HOSTNAME, 'class' => 'IN', 'ttl' => 0, 'type' => 'MX', 'pri' => 10, 'target' => self::NAME_FAKE_MX_TARGET, ];
 
     /** @var array<string, string|int> */
     protected const VALUES_FAKE_HOSTNAME_NS1 = ['host' => self::NAME_FAKE_HOSTNAME, 'class' => 'IN', 'ttl' => 0, 'type' => 'NS', 'target' => 'ns1.fake.ixno.de', ];
