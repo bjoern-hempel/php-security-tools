@@ -14,7 +14,8 @@ declare(strict_types=1);
 namespace App\Command\Domain\DNS;
 
 use App\Exception\NotFoundException;
-use App\Utils\Domain\DNS\MxRecord;
+use App\Utils\Domain\DNS\AAAARecord;
+use App\Utils\Domain\DNS\ARecord;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -22,29 +23,29 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
-* Class GetMxRecordCommand
+* Class GetAAAARecordCommand
 *
 * @author Björn Hempel <bjoern@hempel.li>
-* @version 1.0 (2022-08-30)
+* @version 1.0 (2022-08-31)
 * @package App\Command\Domain\DNS
-* @example bin/console domain:dns:get-mx-record [domain]
+* @example bin/console domain:dns:get-aaaa-record [domain]
 */
 #[AsCommand(
-    name: 'domain:dns:get-mx-record',
-    description: 'Gets the MX DNS record from given domain.'
+    name: 'domain:dns:get-aaaa-record',
+    description: 'Gets the AAAA DNS record from given domain.'
 )]
-class GetMxRecordCommand extends BaseGetRecordCommand
+class GetAAAARecordCommand extends BaseGetRecordCommand
 {
-    protected MxRecord $mxRecord;
+    protected AAAARecord $aaaaRecord;
 
     /**
-     * GetMxRecordCommand constructor.
+     * GetARecordCommand constructor.
      *
-     * @param MxRecord $mxRecord
+     * @param AAAARecord $aaaaRecord
      */
-    public function __construct(MxRecord $mxRecord)
+    public function __construct(AAAARecord $aaaaRecord)
     {
-        $this->mxRecord = $mxRecord;
+        $this->aaaaRecord = $aaaaRecord;
 
         parent::__construct();
     }
@@ -56,7 +57,7 @@ class GetMxRecordCommand extends BaseGetRecordCommand
      */
     protected function configure(): void
     {
-        $this->setHelp('This command gives you the MX record from given domain.');
+        $this->setHelp('This command gives you the AAAA record from given domain.');
         parent::configure();
     }
 
@@ -76,8 +77,8 @@ class GetMxRecordCommand extends BaseGetRecordCommand
         $domain = strval($input->getArgument(self::NAME_ARGUMENT_DOMAIN));
         $all = boolval($input->getOption(self::NAME_ARGUMENT_ALL));
 
-        $title = 'Domain:DNS:MX-Record';
-        $this->printOutput($title, $domain, $all ? $this->mxRecord->getAll($domain) : $this->mxRecord->getString($domain));
+        $title = 'Domain:DNS:AAAA-Record';
+        $this->printOutput($title, $domain, $all ? $this->aaaaRecord->getAll($domain) : $this->aaaaRecord->getString($domain));
 
         return Command::SUCCESS;
     }
