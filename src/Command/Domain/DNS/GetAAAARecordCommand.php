@@ -15,10 +15,9 @@ namespace App\Command\Domain\DNS;
 
 use App\Exception\NotFoundException;
 use App\Utils\Domain\DNS\AAAARecord;
-use App\Utils\Domain\DNS\ARecord;
+use App\Utils\Domain\DNS\BaseRecord;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -36,29 +35,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class GetAAAARecordCommand extends BaseGetRecordCommand
 {
-    protected AAAARecord $aaaaRecord;
-
     /**
-     * GetARecordCommand constructor.
+     * Returns the help message.
      *
-     * @param AAAARecord $aaaaRecord
+     * @return string
      */
-    public function __construct(AAAARecord $aaaaRecord)
+    protected function getCommandName(): string
     {
-        $this->aaaaRecord = $aaaaRecord;
-
-        parent::__construct();
-    }
-
-    /**
-     * Configures the command.
-     *
-     * @return void
-     */
-    protected function configure(): void
-    {
-        $this->setHelp('This command gives you the AAAA record from given domain.');
-        parent::configure();
+        return BaseRecord::NAME_TYPE_AAAA;
     }
 
     /**
@@ -72,14 +56,6 @@ class GetAAAARecordCommand extends BaseGetRecordCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->setOutput($output);
-
-        $domain = strval($input->getArgument(self::NAME_ARGUMENT_DOMAIN));
-        $all = boolval($input->getOption(self::NAME_ARGUMENT_ALL));
-
-        $title = 'Domain:DNS:AAAA-Record';
-        $this->printOutput($title, $domain, $all ? $this->aaaaRecord->getAll($domain) : $this->aaaaRecord->getString($domain));
-
-        return Command::SUCCESS;
+        return $this->executeBase($input, $output, new AAAARecord());
     }
 }

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace App\Utils\Domain\DNS;
 
+use App\Exception\NotFoundException;
+
 /**
  * Class BaseRecord
  *
@@ -109,6 +111,31 @@ abstract class BaseRecord
         DNS_ALL => self::VALUES_FAKE_HOSTNAME_ANY,
         DNS_ANY => self::VALUES_FAKE_HOSTNAME_ANY,
     ];
+
+    /**
+     * Returns the command path.
+     *
+     * @return string
+     */
+    abstract function getCommandPath(): string;
+
+    /**
+     * Returns all entries of AAAA DNS record.
+     *
+     * @param string $domain
+     * @return array<string, string|int|array<int, string>>
+     * @throws NotFoundException
+     */
+    abstract public function getAll(string $domain): array;
+
+    /**
+     * Returns the AAAA Record
+     *
+     * @param string $domain
+     * @return string
+     * @throws NotFoundException
+     */
+    abstract public function getString(string $domain): string;
 
     /**
      * Returns the DNS records.

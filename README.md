@@ -27,3 +27,11 @@
 ```bash
 ❯ bin/console domain:dns:get-mx-record fake.ixno.de --all
 ```
+
+```bash
+❯ bin/console domain:dns:get-aaaa-record fake.ixno.de
+```
+
+```bash
+❯ bin/console domain:dns:get-aaaa-record fake.ixno.de --all
+```

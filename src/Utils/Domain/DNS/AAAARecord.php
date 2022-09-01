@@ -29,6 +29,16 @@ class AAAARecord extends BaseRecord
     protected const INDEX_NAME_IPV6 = 'ipv6';
 
     /**
+     * Returns the command path.
+     *
+     * @return string
+     */
+    function getCommandPath(): string
+    {
+        return 'Domain:DNS:AAAA-Record';
+    }
+
+    /**
      * Returns all entries of AAAA DNS record.
      *
      * @param string $domain

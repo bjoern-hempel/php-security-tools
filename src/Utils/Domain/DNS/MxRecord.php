@@ -29,6 +29,16 @@ class MxRecord extends BaseRecord
     protected const INDEX_NAME_TARGET = 'target';
 
     /**
+     * Returns the command path.
+     *
+     * @return string
+     */
+    function getCommandPath(): string
+    {
+        return 'Domain:DNS:MX-Record';
+    }
+
+    /**
      * Returns all entries of MX DNS record.
      *
      * @param string $domain

@@ -29,6 +29,16 @@ class ARecord extends BaseRecord
     protected const INDEX_NAME_IP = 'ip';
 
     /**
+     * Returns the command path.
+     *
+     * @return string
+     */
+    function getCommandPath(): string
+    {
+        return 'Domain:DNS:A-Record';
+    }
+
+    /**
      * Returns all entries of A DNS record.
      *
      * @param string $domain
